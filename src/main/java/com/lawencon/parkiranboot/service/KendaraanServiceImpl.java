@@ -11,17 +11,19 @@ import com.lawencon.parkiranboot.model.UserLogin;
 import com.lawencon.parkiranboot.repo.hibernate.BaseHibernate;
 import com.lawencon.parkiranboot.repo.hibernate.kendaraan.KendaraanHibernateImpl;
 import com.lawencon.parkiranboot.repo.hibernate.userlogin.UserHibernateImpl;
+import com.lawencon.parkiranboot.repo.jpa.kendaraan.KendaraanJPAImpl;
+import com.lawencon.parkiranboot.repo.jpa.userlogin.UserLoginJPAImpl;
 
 @Service
 @Transactional
 public class KendaraanServiceImpl extends BaseHibernate implements KendaraanService {
 
 	@Autowired
-	@Qualifier("kendaraan_repo_hibernate")
-	private KendaraanHibernateImpl kendaraanService;
+	@Qualifier("kendaraan_repo_jpa")
+	private KendaraanJPAImpl kendaraanService;
 
 	@Autowired
-	private UserHibernateImpl userService;
+	private UserLoginJPAImpl userService;
 
 	@Override
 	public Kendaraan checkIn(Kendaraan kendaraan, String username, String password) throws Exception {
@@ -31,11 +33,6 @@ public class KendaraanServiceImpl extends BaseHibernate implements KendaraanServ
 			return kendaraanService.checkIn(kendaraan);
 
 		}
-	}
-
-	@Override
-	public Boolean validNomor(Kendaraan kendaraan) throws Exception {
-		return kendaraanService.validNomor(kendaraan);
 	}
 
 	public Boolean checkUser(String username, String password) {
